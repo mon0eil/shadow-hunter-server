@@ -1,13 +1,10 @@
-<p>board works!</p>
-<div class="board-boundary">
 
-  <div class="board">
-    <div *ngFor="let space of spacelist">
-      <div class="card-small">
-        <p class="card-num black">{{ space.number }}</p>
-        <p class="card-text black">{{ space.name }}</p>
-      </div>
-    </div>
+<div class="board-boundary">
+  <button (click)="onAddPlayer()">Ajouter un joueur</button>
+  <div class="space-top1"></div>
+  <div class="space-top2"></div>
+  <div class="space-left1"></div>
+
   <div
     *ngFor="let player of players; let i = index"
     [style.background-color]="player.color"

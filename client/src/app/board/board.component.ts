@@ -1,57 +1,84 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Space } from '../models/space.model';
-
+import { Component, OnInit } from '@angular/core';
+import { Pawn } from '../models/pawn.model';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  spacelist: Space[];
 
-  players = [
+  players: Pawn[] = [
     {
-      x: 10,
-      y: 50,
+      id: 1,
+      x: 750 + Math.random() * 30 + 1,
+      y: 350 + Math.random() * 30 + 1,
       color: 'red'
     },
     {
-      x: 50,
-      y: 100,
+      id: 2,
+      x: 300 + Math.random() * 30 + 1,
+      y: 575 + Math.random() * 30 + 1,
+      color: 'red'
+    },
+    {
+      id: 3,
+      x: 750 + Math.random() * 30 + 1,
+      y: 350 + Math.random() * 30 + 1,
       color: 'yellow'
+    },
+    {
+      id: 4,
+      x: 300 + Math.random() * 30 + 1,
+      y: 575 + Math.random() * 30 + 1,
+      color: 'yellow'
+    },
+    {
+      id: 5,
+      x: 750 + Math.random() * 30 + 1,
+      y: 350 + Math.random() * 30 + 1,
+      color: 'purple'
+    },
+    {
+      id: 6,
+      x: 300 + Math.random() * 30 + 1,
+      y: 575 + Math.random() * 30 + 1,
+      color: 'purple'
+    },
+    {
+      id: 7,
+      x: 750 + Math.random() * 30 + 1,
+      y: 350 + Math.random() * 30 + 1,
+      color: 'green'
+    },
+    {
+      id: 8,
+      x: 300 + Math.random() * 30 + 1,
+      y: 575 + Math.random() * 30 + 1,
+      color: 'green'
     }
   ];
 
+  color: string[] = [
+    'violet', 'black', 'orange', 'blue', 'white'
+  ];
 
   ngOnInit(): void {
-    this.spaceInit();
-    this.shuffle();
   }
 
-  spaceInit() {
-    this.spacelist = [
-      {number: '2/3', name: 'Ermite' },
-      {number: '4/5', name: 'Abyss' },
-      {number: '6', name: 'Monastère' },
-      {number: '8', name: 'Cimetière' },
-      {number: '9', name: 'Forêt hantée' },
-      {number: '10', name: 'Sanctuaire ancien' }
-    ];
-  }
-
-  shuffle() {
-    let i: number;
-    let j: number;
-    let x: Space;
-    let y: number;
-    for (y = 0; y <= 3; y++) {
-      for (i = 0; i < 6; i++) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = this.spacelist[i];
-        this.spacelist[i] = this.spacelist[j];
-        this.spacelist[j] = x;
-      }
-    }
+  onAddPlayer() {
+    const colorPawn = this.color.pop();
+    this.players.push({
+      id: this.players.length,
+      x: 750 + Math.random() * 30 + 1,
+      y: 350 + Math.random() * 30 + 1,
+      color: colorPawn
+    });
+    this.players.push({
+      id: this.players.length,
+      x: 300 + Math.random() * 30 + 1,
+      y: 575 + Math.random() * 30 + 1,
+      color: colorPawn
+    });
   }
 
   positionChanged(index, event) {
@@ -61,11 +88,6 @@ export class BoardComponent implements OnInit {
     player.x = position.x;
     player.y = position.y;
     console.log(this.players);
-
-    setTimeout(() => {
-      // after 2s, move the player to the right for testing :)
-      player.x = player.x + 50;
-    }, 2000);
   }
 
   getPlayerPosition(player) {
