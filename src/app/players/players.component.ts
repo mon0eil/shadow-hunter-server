@@ -6,7 +6,7 @@ import { Player } from '../models/player.model';
   styleUrls: ['./players.component.css']
 })
 export class PlayersComponent implements OnInit {
-  @Output() playerNumber: number;
+  playerNumber: number;
   players: Player[];
   playerName: string;
   constructor() { }
