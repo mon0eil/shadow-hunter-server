@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/shadow-hunter-server",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -49,6 +51,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -83,6 +89,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -114,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "shadow-hunter-server"
+    }
+  },
+  "defaultProject": "shadow-hunter-server",
+  "cli": {
+    "analytics": "3da87c19-c863-4aad-b888-dc899b3f3d82"
+  }
 }

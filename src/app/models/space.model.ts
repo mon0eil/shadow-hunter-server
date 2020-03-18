@@ -1,4 +1,4 @@
 export interface Space {
-  number: number;
-  type: string;
+  number: string;
+  name: string;
 }

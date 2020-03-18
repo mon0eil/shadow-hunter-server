@@ -1,5 +1,6 @@
 <div>
-  <app-players></app-players>
+  <app-players (playerNumber)="playerNumber"></app-players>
+  <div>Nombre de joueur: {{ playerNumber }}</div>
   <app-board></app-board>
 </div>
 

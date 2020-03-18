@@ -1,6 +1,13 @@
 <p>board works!</p>
-<div class="example-boundary">
-    <div class="example-box" cdkDragBoundary=".example-boundary" cdkDrag>
-      I can only be dragged within the dotted container
+<div class="board-boundary">
+
+  <div class="board">
+    <div *ngFor="let space of spacelist">
+      <div class="card-small">
+        <p class="card-num black">{{ space.number }}</p>
+        <p class="card-text black">{{ space.name }}</p>
+      </div>
     </div>
-  </div>
+  <div class="board-box" cdkDragBoundary=".board-boundary" cdkDrag></div>
+
+</div>
