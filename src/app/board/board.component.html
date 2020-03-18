@@ -8,6 +8,13 @@
         <p class="card-text black">{{ space.name }}</p>
       </div>
     </div>
-  <div class="board-box" cdkDragBoundary=".board-boundary" cdkDrag></div>
-
+  <div
+    *ngFor="let player of players; let i = index"
+    [style.background-color]="player.color"
+    class="board-box"
+    cdkDragBoundary=".board-boundary"
+    cdkDrag
+    (cdkDragEnded)="positionChanged(i, $event)"
+    [cdkDragFreeDragPosition]="getPlayerPosition(player)">
+  </div>
 </div>

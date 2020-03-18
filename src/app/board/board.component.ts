@@ -9,6 +9,19 @@ import { Space } from '../models/space.model';
 export class BoardComponent implements OnInit {
   spacelist: Space[];
 
+  players = [
+    {
+      x: 10,
+      y: 50,
+      color: 'red'
+    },
+    {
+      x: 50,
+      y: 100,
+      color: 'yellow'
+    }
+  ];
+
 
   ngOnInit(): void {
     this.spaceInit();
@@ -39,5 +52,26 @@ export class BoardComponent implements OnInit {
         this.spacelist[j] = x;
       }
     }
+  }
+
+  positionChanged(index, event) {
+    const player = this.players[index];
+    const position = event.source.getFreeDragPosition();
+    console.log('changing position of player', player, position);
+    player.x = position.x;
+    player.y = position.y;
+    console.log(this.players);
+
+    setTimeout(() => {
+      // after 2s, move the player to the right for testing :)
+      player.x = player.x + 50;
+    }, 2000);
+  }
+
+  getPlayerPosition(player) {
+    return {
+      x: player.x,
+      y: player.y
+    };
   }
 }
