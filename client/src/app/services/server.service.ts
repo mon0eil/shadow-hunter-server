@@ -16,6 +16,7 @@ export class ServerService {
   blackCard$: Subject<Card> = new Subject<Card>();
   greenCard$: Subject<Card> = new Subject<Card>();
   dices$: Subject<any> = new Subject<any>();
+  text$: Subject<string> = new Subject<string>();
 
   constructor() { }
 
@@ -33,7 +34,7 @@ export class ServerService {
   }
 
   handleMessage(type: string, data: any) {
-    console.log('got message : ', type);
+    console.log('got message : ', type, data);
     switch (type) {
       case 'pawns':
         this.handlePawns(data);
@@ -52,6 +53,9 @@ export class ServerService {
         break;
       case 'dices':
         this.handleDices(data);
+        break;
+      case 'text':
+        this.handleText(data);
         break;
     }
   }
@@ -80,6 +84,10 @@ export class ServerService {
     this.dices$.next(dices);
   }
 
+  handleText(text) {
+    this.text$.next(text);
+  }
+
   requestPawnCreation(color: string) {
     this.sendMessage('create', color);
   }
@@ -94,6 +102,10 @@ export class ServerService {
       x,
       y
     });
+  }
+
+  requestWrite(text: string) {
+    this.sendMessage('write', text);
   }
 
   sendMessage(type: string, data?: any) {

@@ -154,3 +154,11 @@
   color: white;
   width: 100px;
 }
+
+.global-text {
+  position: absolute;
+  left: 110%;
+  top: 25%;
+  width: 500px;
+  height: 100%;
+}

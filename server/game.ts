@@ -27,6 +27,8 @@ export class Game {
         four: null
     }
 
+    text = '';
+
     addPlayer(connection) {
 
         this.connections.push(connection);
@@ -47,6 +49,7 @@ export class Game {
         this.broadcastWhiteCard();
         this.broadcastBlackCard();
         this.broadcastDices();
+        this.broadcastText();
     }
 
     reset() {
@@ -84,6 +87,9 @@ export class Game {
                 break;
             case 'throwDices':
                 this.throwDices();
+                break;
+            case 'write':
+                this.updateText(data);
                 break;
             case 'reset':
                 this.reset();
@@ -184,6 +190,12 @@ export class Game {
         this.broadcastDices();
     }
 
+    updateText(text: string) {
+        console.log(text);
+        this.text = text;
+        this.broadcastText();
+    }
+
     broadcast(type: string, data: any) {
         return this.connections.forEach(connection => {
             connection.send(JSON.stringify({ type, data }));
@@ -207,7 +219,6 @@ export class Game {
     }
 
     broadcastGreenCard(connection, card: Card){
-        console.log(card)
         connection.send(JSON.stringify({ type:'green', data:card }));
     }
 
@@ -216,7 +227,10 @@ export class Game {
     }
 
     broadcastDices() {
-        console.log(this.dices);
         this.broadcast('dices', this.dices)
+    }
+
+    broadcastText() {
+        this.broadcast('text', this.text);
     }
 }

@@ -1,74 +1,76 @@
 
 <div class="board-boundary">
-  <button (click)="onAddPlayer()">Ajouter un joueur</button><br/>
-  <button (click)="shuffle()">Mélanger les lieux</button><br/>
-  <button (click)="reset()">Reset</button>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <button (click)="drawWhiteCard()">Tirer une carte blanche</button>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <button (click)="drawGreenCard()">Tirer une carte vision</button>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
+    <button (click)="onAddPlayer()">Ajouter un joueur</button><br/>
+    <button (click)="shuffle()">Mélanger les lieux</button><br/>
+    <button (click)="reset()">Reset</button>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <button (click)="drawWhiteCard()">Tirer une carte blanche</button>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <button (click)="drawGreenCard()">Tirer une carte vision</button>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 
-  <br/>
-  <br/>
-  <button (click)="drawBlackCard()">Tirer une carte noire</button>
+    <br/>
+    <br/>
+    <button (click)="drawBlackCard()">Tirer une carte noire</button>
 
-  <img class="space-top1" [src]= "spaces[0]?.card" />
-  <img class="space-top2" [src]= "spaces[1]?.card" />
-  <img class="space-right1" [src]= "spaces[2]?.card" />
-  <img class="space-right2" [src]= "spaces[3]?.card" />
-  <img class="space-left1" [src]= "spaces[4]?.card" />
-  <img class="space-left2" [src]= "spaces[5]?.card" />
-  <div
-    *ngFor="let player of players; let i = index"
-    [style.background-color]="player.color"
-    class="board-box"
-    cdkDragBoundary=".board-boundary"
-    cdkDrag
-    (cdkDragEnded)="positionChanged(i, $event)"
-    [cdkDragFreeDragPosition]="getPlayerPosition(player)">
-  </div>
-  <div class="card-small-white">
-    <div class="card-title"> {{ white?.name }}</div>
-    <div class="card-effect">{{ white?.effect }}</div>
-  </div>
-  <div class="card-small-green">
-    <div class="card-title"> {{ green?.name }}</div>
-    <div class="card-effect">{{ green?.effect }}</div>
-  </div>
-  <div class="card-small-black">
-    <div class="card-title inverted"> {{ black?.name }}</div>
-    <div class="card-effect">{{ black?.effect }}</div>
-  </div>
+    <img class="space-top1" [src]= "spaces[0]?.card" />
+    <img class="space-top2" [src]= "spaces[1]?.card" />
+    <img class="space-right1" [src]= "spaces[2]?.card" />
+    <img class="space-right2" [src]= "spaces[3]?.card" />
+    <img class="space-left1" [src]= "spaces[4]?.card" />
+    <img class="space-left2" [src]= "spaces[5]?.card" />
+    <div
+      *ngFor="let player of players; let i = index"
+      [style.background-color]="player.color"
+      class="board-box"
+      cdkDragBoundary=".board-boundary"
+      cdkDrag
+      (cdkDragEnded)="positionChanged(i, $event)"
+      [cdkDragFreeDragPosition]="getPlayerPosition(player)">
+    </div>
+    <div class="card-small-white">
+      <div class="card-title"> {{ white?.name }}</div>
+      <div class="card-effect">{{ white?.effect }}</div>
+    </div>
+    <div class="card-small-green" (click)="hideGreenCard()">
+      <div class="card-title"> {{ green?.name }}</div>
+      <div class="card-effect">{{ green?.effect }}</div>
+    </div>
+    <div class="card-small-black">
+      <div class="card-title inverted"> {{ black?.name }}</div>
+      <div class="card-effect">{{ black?.effect }}</div>
+    </div>
 
-  <div class="dices">
-    <button (click)="throwDices()">Lancer les dés</button>
-    <div>Dé 6 : {{ dices.six }}</div>
-    <div>Dé 4 : {{ dices.four }}</div>
-    <div>Total : {{ dices.six + dices.four }}</div>
-    <div>Différence : {{ dices.six > dices.four ? dices.six - dices.four : dices.four - dices.six }}</div>
+    <div class="dices">
+      <button (click)="throwDices()">Lancer les dés</button>
+      <div>Dé 6 : {{ dices.six }}</div>
+      <div>Dé 4 : {{ dices.four }}</div>
+      <div>Total : {{ dices.six + dices.four }}</div>
+      <div>Différence : {{ dices.six > dices.four ? dices.six - dices.four : dices.four - dices.six }}</div>
+    </div>
+
+    <textarea class="global-text" [(ngModel)]="text" (keydown)="write()"></textarea>
   </div>
-</div>

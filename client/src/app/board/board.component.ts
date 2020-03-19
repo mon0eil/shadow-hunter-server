@@ -26,6 +26,7 @@ export class BoardComponent implements OnInit {
     six: null,
     four: null
   };
+  text = '';
 
   ngOnInit(): void {
     this.serverService.connect();
@@ -47,6 +48,9 @@ export class BoardComponent implements OnInit {
     });
     this.serverService.dices$.subscribe(dices => {
       this.dices = dices;
+    });
+    this.serverService.text$.subscribe(text => {
+      this.text = text;
     });
   }
 
@@ -82,8 +86,19 @@ export class BoardComponent implements OnInit {
     this.serverService.sendMessage('drawGreen');
   }
 
+  write() {
+    console.log(this.text);
+    setTimeout(() => {
+      this.serverService.sendMessage('write', this.text);
+    }, 1);
+  }
+
   throwDices() {
     this.serverService.requestDiceThrow();
+  }
+
+  hideGreenCard() {
+    this.green = null;
   }
 
   getPlayerPosition(player) {
