@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pawn } from '../models/pawn.model';
+import { ServerService } from '../services/server.service';
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -7,87 +9,36 @@ import { Pawn } from '../models/pawn.model';
 })
 export class BoardComponent implements OnInit {
 
-  players: Pawn[] = [
-    {
-      id: 1,
-      x: 750 + Math.random() * 30 + 1,
-      y: 350 + Math.random() * 30 + 1,
-      color: 'red'
-    },
-    {
-      id: 2,
-      x: 300 + Math.random() * 30 + 1,
-      y: 575 + Math.random() * 30 + 1,
-      color: 'red'
-    },
-    {
-      id: 3,
-      x: 750 + Math.random() * 30 + 1,
-      y: 350 + Math.random() * 30 + 1,
-      color: 'yellow'
-    },
-    {
-      id: 4,
-      x: 300 + Math.random() * 30 + 1,
-      y: 575 + Math.random() * 30 + 1,
-      color: 'yellow'
-    },
-    {
-      id: 5,
-      x: 750 + Math.random() * 30 + 1,
-      y: 350 + Math.random() * 30 + 1,
-      color: 'purple'
-    },
-    {
-      id: 6,
-      x: 300 + Math.random() * 30 + 1,
-      y: 575 + Math.random() * 30 + 1,
-      color: 'purple'
-    },
-    {
-      id: 7,
-      x: 750 + Math.random() * 30 + 1,
-      y: 350 + Math.random() * 30 + 1,
-      color: 'green'
-    },
-    {
-      id: 8,
-      x: 300 + Math.random() * 30 + 1,
-      y: 575 + Math.random() * 30 + 1,
-      color: 'green'
-    }
-  ];
+  constructor(
+    private serverService: ServerService
+  ) {}
+
+  players: Pawn[] = [];
 
   color: string[] = [
     'violet', 'black', 'orange', 'blue', 'white'
   ];
 
   ngOnInit(): void {
+    this.serverService.connect();
+
+    this.serverService.pawns$.subscribe(pawns => {
+      this.players = pawns;
+    })
   }
 
   onAddPlayer() {
-    const colorPawn = this.color.pop();
-    this.players.push({
-      id: this.players.length,
-      x: 750 + Math.random() * 30 + 1,
-      y: 350 + Math.random() * 30 + 1,
-      color: colorPawn
-    });
-    this.players.push({
-      id: this.players.length,
-      x: 300 + Math.random() * 30 + 1,
-      y: 575 + Math.random() * 30 + 1,
-      color: colorPawn
-    });
+    this.serverService.requestPawnCreation(this.color.pop());
   }
 
   positionChanged(index, event) {
     const player = this.players[index];
     const position = event.source.getFreeDragPosition();
-    console.log('changing position of player', player, position);
-    player.x = position.x;
-    player.y = position.y;
-    console.log(this.players);
+    this.serverService.requestPawnMove(player.id, position.x, position.y);
+  }
+
+  reset() {
+    this.serverService.sendMessage('reset');
   }
 
   getPlayerPosition(player) {

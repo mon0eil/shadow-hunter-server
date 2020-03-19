@@ -1,4 +1,4 @@
-interface ColorDice {
+interface Pawn {
     x: number;
     y: number;
     color: string;
@@ -7,7 +7,7 @@ interface ColorDice {
 
 export class Game {
     connections = [];
-    colorDices: ColorDice[] = [];
+    pawns: Pawn[] = [];
 
     addPlayer(connection) {
 
@@ -24,12 +24,12 @@ export class Game {
         })
 
         this.broadcastConnectedPlayerCount();
-        this.broadcastColorDices();
+        this.broadcastPawns();
     }
 
     reset() {
-        this.colorDices = [];
-        this.broadcastColorDices();
+        this.pawns = [];
+        this.broadcastPawns();
         this.broadcastConnectedPlayerCount();
     }
 
@@ -50,8 +50,8 @@ export class Game {
     }
 
     addDices(color: string) {
-        if (!this.colorDices.find(dice => dice.color === color)) {
-            this.colorDices.push(
+        if (!this.pawns.find(dice => dice.color === color)) {
+            this.pawns.push(
                 {
                     x: 10,
                     y: 20,
@@ -66,17 +66,17 @@ export class Game {
                 },
             );
         }
-        this.broadcastColorDices();
+        this.broadcastPawns();
     }
 
     moveDice(id: number, x: number, y: number) {
-        const colorDice = this.colorDices.find(cd => cd.id === id);
-        if (!colorDice) return; 
+        const pawn = this.pawns.find(cd => cd.id === id);
+        if (!pawn) return; 
 
-        colorDice.x = x;
-        colorDice.y = y;
+        pawn.x = x;
+        pawn.y = y;
 
-        this.broadcastColorDices();
+        this.broadcastPawns();
     }
 
     broadcast(type: string, data: any) {
@@ -85,8 +85,8 @@ export class Game {
         });
     }
 
-    broadcastColorDices() {
-        this.broadcast('colorDices', this.colorDices);
+    broadcastPawns() {
+        this.broadcast('pawns', this.pawns);
     }
 
     broadcastConnectedPlayerCount() {

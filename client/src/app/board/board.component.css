@@ -26,8 +26,8 @@
 .board-boundary {
   width: 1280px;
   height: 720px;
-  max-width: 100%;
   border: dotted #222222 2px;
+  position: relative;
   background-image: url('../../assets/board.jpg');
   background-repeat: no-repeat;
   background-size: contain;
@@ -36,13 +36,11 @@
 
 .space-top1 {
   position: absolute;
-  left: 600px;
-  top: 45px;
-  width: 150px;
-  height: 200px;
+  left: 47%;
+  top: 6.2%;
+  width: 11.5%;
+  height: 29%;
   max-width: 100%;
-  background-image: url('../../assets/9.jpg');
-  background-size: contain;
 }
 .space-top2 {
   position: absolute;
