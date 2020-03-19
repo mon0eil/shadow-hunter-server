@@ -83,14 +83,14 @@ export class Game {
         if (!this.pawns.find(dice => dice.color === color)) {
             this.pawns.push(
                 {
-                    x: 300,
-                    y: 550,
+                    x: 300 + Math.floor((Math.random() * 20) - 40),
+                    y: 0 + Math.floor((Math.random() * 20) - 40),
                     color,
                     id: Math.random()
                 },
                 {
-                    x: 750,
-                    y: 300,
+                    x: 750 + Math.floor((Math.random() * 20) - 40),
+                    y: -300 + Math.floor((Math.random() * 20) - 40),
                     color,
                     id: Math.random()
                 },

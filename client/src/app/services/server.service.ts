@@ -19,7 +19,7 @@ export class ServerService {
   constructor() { }
 
   connect() {
-    this.socket = new WebSocket('ws://localhost:13475');
+    this.socket = new WebSocket('ws://darckoune.moe:13475');
 
     this.socket.onopen = () => {
       console.log('connected');

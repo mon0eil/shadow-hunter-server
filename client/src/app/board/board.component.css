@@ -102,7 +102,7 @@
   width: 150px; /*70% of height*/
   margin-right: 5px;
   float: left;
-  background-color: rgba(255, 255, 255, 0.76);
+  background-color: rgb(221, 221, 221);
  }
 
 .card-title{
@@ -114,8 +114,13 @@
   padding: 0;
 }
 
-.card-small-green {
+.card-effect {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+}
 
+.card-small-green {
   position: absolute;
   left: 90%;
   top: 35%;
@@ -124,13 +129,11 @@
   height: 200px;
   width: 150px; /*70% of height*/
   margin-right: 5px;
-  float: left;
-  background-color: rgba(4, 179, 19, 0.438);
+  background-color: rgb(4, 85, 11);
  }
 
 
 .card-small-black {
-
   position: absolute;
   left: 90%;
   top: 67%;
@@ -139,6 +142,7 @@
   height: 200px;
   width: 150px; /*70% of height*/
   margin-right: 5px;
-  float: left;
-  background-color: rgba(255, 255, 255, 0);
+  color: white;
+
+  background-color: rgba(0,0,0, 1);
  }

@@ -52,6 +52,8 @@ export class BoardComponent implements OnInit {
   positionChanged(index, event) {
     const player = this.players[index];
     const position = event.source.getFreeDragPosition();
+    player.x = position.x;
+    player.y = position.y;
     this.serverService.requestPawnMove(player.id, position.x, position.y);
   }
 
