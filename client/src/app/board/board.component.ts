@@ -21,9 +21,11 @@ export class BoardComponent implements OnInit {
   white: Card = null;
   black: Card = null;
   green: Card = null;
-  color: string[] = [
-    'violet', 'black', 'orange', 'blue', 'white', 'purple', 'green', 'orange', 'red'
-    ];
+  color: string[] = ['violet', 'black', 'orange', 'blue', 'white', 'purple', 'green', 'orange', 'red'];
+  dices = {
+    six: null,
+    four: null
+  };
 
   ngOnInit(): void {
     this.serverService.connect();
@@ -42,6 +44,9 @@ export class BoardComponent implements OnInit {
     });
     this.serverService.greenCard$.subscribe(green => {
       this.green = green;
+    });
+    this.serverService.dices$.subscribe(dices => {
+      this.dices = dices;
     });
   }
 
@@ -76,6 +81,11 @@ export class BoardComponent implements OnInit {
   drawGreenCard() {
     this.serverService.sendMessage('drawGreen');
   }
+
+  throwDices() {
+    this.serverService.requestDiceThrow();
+  }
+
   getPlayerPosition(player) {
     return {
       x: player.x,

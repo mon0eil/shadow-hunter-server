@@ -146,3 +146,11 @@
 
   background-color: rgba(0,0,0, 1);
  }
+
+.dices {
+  position: absolute;
+  left: 110%;
+  top: 5%;
+  color: white;
+  width: 100px;
+}

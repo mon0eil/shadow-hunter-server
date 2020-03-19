@@ -12,13 +12,20 @@ export class Game {
     spaces: Space[] = spacesCards.slice();
 
     whiteDeck: Card[] = whiteCards.slice();
+    whiteCard: Card;
     whiteDiscard: Card[] = [];
 
     blackDeck: Card[] = blackCards.slice();
+    blackCard: Card;
     blackDiscard: Card[] = [];
 
     greenDeck: Card[] = greenCards.slice();
     greenDiscard: Card[] = [];
+
+    dices = {
+        six: null,
+        four: null
+    }
 
     addPlayer(connection) {
 
@@ -36,6 +43,10 @@ export class Game {
 
         this.broadcastConnectedPlayerCount();
         this.broadcastPawns();
+        this.broadcastSpaces();
+        this.broadcastWhiteCard();
+        this.broadcastBlackCard();
+        this.broadcastDices();
     }
 
     reset() {
@@ -51,6 +62,7 @@ export class Game {
     }
 
     handleMessage(connection, type, data) {
+        console.log('got message', type);
         switch(type) {
             case 'create':
                 this.addDices(data);
@@ -69,6 +81,9 @@ export class Game {
                 break;
             case 'drawGreen':
                 this.drawGreenCard(connection);
+                break;
+            case 'throwDices':
+                this.throwDices();
                 break;
             case 'reset':
                 this.reset();
@@ -134,18 +149,20 @@ export class Game {
         if (!this.whiteDeck) return; 
 
         this.whiteDeck = this.shuffle(this.whiteDeck);
-        const card = this.whiteDeck.pop()
-        this.whiteDiscard.push(card)
-        this.broadcastWhiteCard(card);
+        const card = this.whiteDeck.pop();
+        this.whiteCard = card;
+        this.whiteDiscard.push(card);
+        this.broadcastWhiteCard();
     }
 
     drawBlackCard() {
         if (!this.blackDeck) return; 
 
         this.blackDeck = this.shuffle(this.blackDeck);
-        const card = this.blackDeck.pop()
-        this.blackDiscard.push(card)
-        this.broadcastBlackCard(card);
+        const card = this.blackDeck.pop();
+        this.blackCard = card;
+        this.blackDiscard.push(card);
+        this.broadcastBlackCard();
     }
 
 
@@ -157,6 +174,14 @@ export class Game {
         this.greenDiscard.push(card)
         console.log(card)
         this.broadcastGreenCard(connection, card);
+    }
+
+    throwDices() {
+        this.dices = {
+            six: Math.floor(Math.random() * 6) + 1,
+            four: Math.floor(Math.random() * 4) + 1
+        }
+        this.broadcastDices();
     }
 
     broadcast(type: string, data: any) {
@@ -173,12 +198,12 @@ export class Game {
         this.broadcast('spaces', this.spaces);
     }
 
-    broadcastWhiteCard(card: Card){
-        this.broadcast('white', card);
+    broadcastWhiteCard(){
+        this.broadcast('white', this.whiteCard);
     }
 
-    broadcastBlackCard(card: Card){
-        this.broadcast('black', card);
+    broadcastBlackCard(){
+        this.broadcast('black', this.blackCard);
     }
 
     broadcastGreenCard(connection, card: Card){
@@ -188,5 +213,10 @@ export class Game {
 
     broadcastConnectedPlayerCount() {
         this.broadcast('playerCount', this.connections.length);
+    }
+
+    broadcastDices() {
+        console.log(this.dices);
+        this.broadcast('dices', this.dices)
     }
 }

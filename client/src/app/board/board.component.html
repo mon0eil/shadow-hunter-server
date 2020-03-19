@@ -64,4 +64,11 @@
     <div class="card-effect">{{ black?.effect }}</div>
   </div>
 
+  <div class="dices">
+    <button (click)="throwDices()">Lancer les dés</button>
+    <div>Dé 6 : {{ dices.six }}</div>
+    <div>Dé 4 : {{ dices.four }}</div>
+    <div>Total : {{ dices.six + dices.four }}</div>
+    <div>Différence : {{ dices.six > dices.four ? dices.six - dices.four : dices.four - dices.six }}</div>
+  </div>
 </div>
