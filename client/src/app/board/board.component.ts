@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pawn } from '../../../../interface/pawn.model';
 import { ServerService } from '../services/server.service';
 import { Space } from '../../../../interface/space.model';
+import { Card } from '../../../../interface/card.model';
 
 @Component({
   selector: 'app-board',
@@ -17,6 +18,7 @@ export class BoardComponent implements OnInit {
   players: Pawn[] = [];
   spaces: Space[] = [];
 
+  white: Card = null;
   color: string[] = [
     'violet', 'black', 'orange', 'blue', 'white'
   ];
@@ -29,6 +31,9 @@ export class BoardComponent implements OnInit {
     });
     this.serverService.spaces$.subscribe(spaces => {
       this.spaces = spaces;
+    });
+    this.serverService.whiteCard$.subscribe(white => {
+      this.white = white;
     });
   }
 
@@ -49,6 +54,11 @@ export class BoardComponent implements OnInit {
   shuffle() {
     this.serverService.sendMessage('shuffle');
     console.log(this.spaces);
+  }
+
+  drawWhiteCard() {
+    this.serverService.sendMessage('drawWhite');
+    console.log(this.white);
   }
 
   getPlayerPosition(player) {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Space } from '../../../../interface/space.model';
 import { Pawn } from '../../../../interface/pawn.model';
+import { Card } from '../../../../interface/card.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +12,7 @@ export class ServerService {
 
   pawns$: Subject<Pawn[]> = new Subject<Pawn[]>();
   spaces$: Subject<Space[]> = new Subject<Space[]>();
+  whiteCard$: Subject<Card> = new Subject<Card>();
 
   constructor() { }
 
@@ -35,6 +37,8 @@ export class ServerService {
       case 'spaces':
         this.handleSpaces(data);
         break;
+      case 'white':
+        this.handleWhiteCard(data);
     }
   }
 
@@ -44,6 +48,10 @@ export class ServerService {
 
   handleSpaces(spaces: Space[]) {
     this.spaces$.next(spaces);
+  }
+
+  handleWhiteCard(card: Card) {
+    this.whiteCard$.next(card);
   }
 
   requestPawnCreation(color: string) {

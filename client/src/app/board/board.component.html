@@ -4,12 +4,13 @@
   <button (click)="shuffle()">Mélanger les lieux</button><br/>
   <button (click)="reset()">Reset</button>
 
-  <img class="space-top1" [src]= "spaces[0].card" />
-  <img class="space-top2" [src]= "spaces[1].card" />
-  <img class="space-right1" [src]= "spaces[2].card" />
-  <img class="space-right2" [src]= "spaces[3].card" />
-  <img class="space-left1" [src]= "spaces[4].card" />
-  <img class="space-left2" [src]= "spaces[5].card" />
+  <button class="white-deck" (click)="drawWhiteCard()">Tirer une carte blance</button>
+  <img class="space-top1" [src]= "spaces[0]?.card" />
+  <img class="space-top2" [src]= "spaces[1]?.card" />
+  <img class="space-right1" [src]= "spaces[2]?.card" />
+  <img class="space-right2" [src]= "spaces[3]?.card" />
+  <img class="space-left1" [src]= "spaces[4]?.card" />
+  <img class="space-left2" [src]= "spaces[5]?.card" />
   <div
     *ngFor="let player of players; let i = index"
     [style.background-color]="player.color"
@@ -19,4 +20,8 @@
     (cdkDragEnded)="positionChanged(i, $event)"
     [cdkDragFreeDragPosition]="getPlayerPosition(player)">
   </div>
+  <div class="card-small">
+    <div class="card-title"> {{ white?.name }}</div>
+  </div>
+
 </div>

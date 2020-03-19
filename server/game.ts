@@ -1,17 +1,16 @@
 import { spacesCards } from "./spaces-cards";
 import { Space } from "../interface/space.model";
-
-interface Pawn {
-    x: number;
-    y: number;
-    color: string;
-    id: number;
-}
+import { Pawn } from "../interface/pawn.model";
+import { Card } from "../interface/card.model";
+import { whiteCards } from "./white-cards";
 
 export class Game {
     connections = [];
     pawns: Pawn[] = [];
     spaces: Space[] = spacesCards;
+
+    whiteDeck: Card[] = whiteCards;
+    whiteDiscard: Card[] = [];
 
     addPlayer(connection) {
 
@@ -33,6 +32,8 @@ export class Game {
 
     reset() {
         this.pawns = [];
+        this.whiteDeck = whiteCards;
+        this.whiteDiscard = [];
         this.broadcastPawns();
         this.broadcastConnectedPlayerCount();
     }
@@ -47,8 +48,12 @@ export class Game {
                 break;
             case 'shuffle':
                 this.shuffleSpace();
+                break;
+            case 'drawWhite':
+                this.drawWhiteCard();
             case 'reset':
                 this.reset();
+                break;
             default:
                 connection.send(JSON.stringify({ type: 'error', data: 'No handler for action type : ' + type }));
                 break;
@@ -85,22 +90,35 @@ export class Game {
         this.broadcastPawns();
     }
 
-    shuffleSpace() {
+    shuffle(card: any[]){
         let i: number;
         let j: number;
-        let x: Space;
+        let x: any;
         let y: number;
         for (y = 0; y <= 3; y++) {
-          for (i = 0; i < 6; i++) {
+          for (i = 0; i < card.length; i++) {
             j = Math.floor(Math.random() * (i + 1));
-            x = this.spaces[i];
-            this.spaces[i] = this.spaces[j];
-            this.spaces[j] = x;
+            x = card[i];
+            card[i] = card[j];
+            card[j] = x;
           }
         }
+        return card;
+    }
+
+    shuffleSpace() {
+        this.spaces = this.shuffle(this.spaces);
         this.broadcastSpaces();
     }
 
+    drawWhiteCard() {
+        if (!this.drawWhiteCard) return; 
+
+        this.whiteDeck = this.shuffle(this.whiteDeck);
+        const card = this.whiteDeck.pop()
+        this.whiteDiscard.push(card)
+        this.broadcastWhiteCard(card);
+    }
     broadcast(type: string, data: any) {
         return this.connections.forEach(connection => {
             connection.send(JSON.stringify({ type, data }));
@@ -113,6 +131,10 @@ export class Game {
 
     broadcastSpaces() {
         this.broadcast('spaces', this.spaces);
+    }
+
+    broadcastWhiteCard(card: Card){
+        this.broadcast('white', card);
     }
 
     broadcastConnectedPlayerCount() {
