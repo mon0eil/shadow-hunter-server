@@ -3,8 +3,39 @@
   <button (click)="onAddPlayer()">Ajouter un joueur</button><br/>
   <button (click)="shuffle()">Mélanger les lieux</button><br/>
   <button (click)="reset()">Reset</button>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <button (click)="drawWhiteCard()">Tirer une carte blanche</button>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <button (click)="drawGreenCard()">Tirer une carte vision</button>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 
-  <button class="white-deck" (click)="drawWhiteCard()">Tirer une carte blance</button>
+  <br/>
+  <br/>
+  <button (click)="drawBlackCard()">Tirer une carte noire</button>
+
   <img class="space-top1" [src]= "spaces[0]?.card" />
   <img class="space-top2" [src]= "spaces[1]?.card" />
   <img class="space-right1" [src]= "spaces[2]?.card" />
@@ -20,8 +51,14 @@
     (cdkDragEnded)="positionChanged(i, $event)"
     [cdkDragFreeDragPosition]="getPlayerPosition(player)">
   </div>
-  <div class="card-small">
+  <div class="card-small-white">
     <div class="card-title"> {{ white?.name }}</div>
+  </div>
+  <div class="card-small-green">
+    <div class="card-title"> {{ green?.name }}</div>
+  </div>
+  <div class="card-small-black">
+    <div class="card-title"> {{ black?.name }}</div>
   </div>
 
 </div>

@@ -3,14 +3,22 @@ import { Space } from "../interface/space.model";
 import { Pawn } from "../interface/pawn.model";
 import { Card } from "../interface/card.model";
 import { whiteCards } from "./white-cards";
+import { blackCards } from "./black-cards";
+import { greenCards } from "./green-cards";
 
 export class Game {
     connections = [];
     pawns: Pawn[] = [];
-    spaces: Space[] = spacesCards;
+    spaces: Space[] = spacesCards.slice();
 
-    whiteDeck: Card[] = whiteCards;
+    whiteDeck: Card[] = whiteCards.slice();
     whiteDiscard: Card[] = [];
+
+    blackDeck: Card[] = blackCards.slice();
+    blackDiscard: Card[] = [];
+
+    greenDeck: Card[] = greenCards.slice();
+    greenDiscard: Card[] = [];
 
     addPlayer(connection) {
 
@@ -32,8 +40,12 @@ export class Game {
 
     reset() {
         this.pawns = [];
-        this.whiteDeck = whiteCards;
+        this.whiteDeck = whiteCards.slice();
         this.whiteDiscard = [];
+        this.blackDeck = blackCards.slice();
+        this.blackDiscard = [];
+        this.greenDeck = greenCards.slice();
+        this.greenDiscard = [];
         this.broadcastPawns();
         this.broadcastConnectedPlayerCount();
     }
@@ -51,6 +63,13 @@ export class Game {
                 break;
             case 'drawWhite':
                 this.drawWhiteCard();
+                break;
+            case 'drawBlack':
+                this.drawBlackCard();
+                break;
+            case 'drawGreen':
+                this.drawGreenCard(connection);
+                break;
             case 'reset':
                 this.reset();
                 break;
@@ -64,14 +83,14 @@ export class Game {
         if (!this.pawns.find(dice => dice.color === color)) {
             this.pawns.push(
                 {
-                    x: 10,
-                    y: 20,
+                    x: 300,
+                    y: 550,
                     color,
                     id: Math.random()
                 },
                 {
-                    x: 20,
-                    y: 30,
+                    x: 750,
+                    y: 300,
                     color,
                     id: Math.random()
                 },
@@ -112,13 +131,34 @@ export class Game {
     }
 
     drawWhiteCard() {
-        if (!this.drawWhiteCard) return; 
+        if (!this.whiteDeck) return; 
 
         this.whiteDeck = this.shuffle(this.whiteDeck);
         const card = this.whiteDeck.pop()
         this.whiteDiscard.push(card)
         this.broadcastWhiteCard(card);
     }
+
+    drawBlackCard() {
+        if (!this.blackDeck) return; 
+
+        this.blackDeck = this.shuffle(this.blackDeck);
+        const card = this.blackDeck.pop()
+        this.blackDiscard.push(card)
+        this.broadcastBlackCard(card);
+    }
+
+
+    drawGreenCard(connection) {
+        if (!this.greenDeck) return; 
+
+        this.greenDeck = this.shuffle(this.greenDeck);
+        const card = this.greenDeck.pop()
+        this.greenDiscard.push(card)
+        console.log(card)
+        this.broadcastGreenCard(connection, card);
+    }
+
     broadcast(type: string, data: any) {
         return this.connections.forEach(connection => {
             connection.send(JSON.stringify({ type, data }));
@@ -135,6 +175,15 @@ export class Game {
 
     broadcastWhiteCard(card: Card){
         this.broadcast('white', card);
+    }
+
+    broadcastBlackCard(card: Card){
+        this.broadcast('black', card);
+    }
+
+    broadcastGreenCard(connection, card: Card){
+        console.log(card)
+        connection.send(JSON.stringify({ type:'green', data:card }));
     }
 
     broadcastConnectedPlayerCount() {

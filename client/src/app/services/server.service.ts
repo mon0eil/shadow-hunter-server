@@ -13,6 +13,8 @@ export class ServerService {
   pawns$: Subject<Pawn[]> = new Subject<Pawn[]>();
   spaces$: Subject<Space[]> = new Subject<Space[]>();
   whiteCard$: Subject<Card> = new Subject<Card>();
+  blackCard$: Subject<Card> = new Subject<Card>();
+  greenCard$: Subject<Card> = new Subject<Card>();
 
   constructor() { }
 
@@ -39,6 +41,13 @@ export class ServerService {
         break;
       case 'white':
         this.handleWhiteCard(data);
+        break;
+      case 'black':
+        this.handleBlackCard(data);
+        break;
+      case 'green':
+        this.handleGreenCard(data);
+        break;
     }
   }
 
@@ -52,6 +61,14 @@ export class ServerService {
 
   handleWhiteCard(card: Card) {
     this.whiteCard$.next(card);
+  }
+
+  handleBlackCard(card: Card) {
+    this.blackCard$.next(card);
+  }
+
+  handleGreenCard(card: Card) {
+    this.greenCard$.next(card);
   }
 
   requestPawnCreation(color: string) {
