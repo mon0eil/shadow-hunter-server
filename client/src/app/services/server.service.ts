@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Pawn } from '../models/pawn.model';
 import { Subject } from 'rxjs';
-
+import { Space } from '../../../../interface/space.model';
+import { Pawn } from '../../../../interface/pawn.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,11 +10,12 @@ export class ServerService {
   socket;
 
   pawns$: Subject<Pawn[]> = new Subject<Pawn[]>();
+  spaces$: Subject<Space[]> = new Subject<Space[]>();
 
   constructor() { }
 
   connect() {
-    this.socket = new WebSocket('ws://darckoune.moe:13475');
+    this.socket = new WebSocket('ws://localhost:13475');
 
     this.socket.onopen = () => {
       console.log('connected');
@@ -31,11 +32,18 @@ export class ServerService {
       case 'pawns':
         this.handlePawns(data);
         break;
+      case 'spaces':
+        this.handleSpaces(data);
+        break;
     }
   }
 
   handlePawns(pawns: Pawn[]) {
     this.pawns$.next(pawns);
+  }
+
+  handleSpaces(spaces: Space[]) {
+    this.spaces$.next(spaces);
   }
 
   requestPawnCreation(color: string) {

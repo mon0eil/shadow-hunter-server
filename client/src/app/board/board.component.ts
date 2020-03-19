@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Pawn } from '../models/pawn.model';
+import { Pawn } from '../../../../interface/pawn.model';
 import { ServerService } from '../services/server.service';
+import { Space } from '../../../../interface/space.model';
 
 @Component({
   selector: 'app-board',
@@ -14,6 +15,7 @@ export class BoardComponent implements OnInit {
   ) {}
 
   players: Pawn[] = [];
+  spaces: Space[] = [];
 
   color: string[] = [
     'violet', 'black', 'orange', 'blue', 'white'
@@ -24,7 +26,10 @@ export class BoardComponent implements OnInit {
 
     this.serverService.pawns$.subscribe(pawns => {
       this.players = pawns;
-    })
+    });
+    this.serverService.spaces$.subscribe(spaces => {
+      this.spaces = spaces;
+    });
   }
 
   onAddPlayer() {
@@ -39,6 +44,11 @@ export class BoardComponent implements OnInit {
 
   reset() {
     this.serverService.sendMessage('reset');
+  }
+
+  shuffle() {
+    this.serverService.sendMessage('shuffle');
+    console.log(this.spaces);
   }
 
   getPlayerPosition(player) {

@@ -1,3 +1,6 @@
+import { spacesCards } from "./spaces-cards";
+import { Space } from "../interface/space.model";
+
 interface Pawn {
     x: number;
     y: number;
@@ -8,6 +11,7 @@ interface Pawn {
 export class Game {
     connections = [];
     pawns: Pawn[] = [];
+    spaces: Space[] = spacesCards;
 
     addPlayer(connection) {
 
@@ -41,6 +45,8 @@ export class Game {
             case 'move':
                 this.moveDice(data.id, data.x, data.y);
                 break;
+            case 'shuffle':
+                this.shuffleSpace();
             case 'reset':
                 this.reset();
             default:
@@ -79,6 +85,22 @@ export class Game {
         this.broadcastPawns();
     }
 
+    shuffleSpace() {
+        let i: number;
+        let j: number;
+        let x: Space;
+        let y: number;
+        for (y = 0; y <= 3; y++) {
+          for (i = 0; i < 6; i++) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = this.spaces[i];
+            this.spaces[i] = this.spaces[j];
+            this.spaces[j] = x;
+          }
+        }
+        this.broadcastSpaces();
+    }
+
     broadcast(type: string, data: any) {
         return this.connections.forEach(connection => {
             connection.send(JSON.stringify({ type, data }));
@@ -87,6 +109,10 @@ export class Game {
 
     broadcastPawns() {
         this.broadcast('pawns', this.pawns);
+    }
+
+    broadcastSpaces() {
+        this.broadcast('spaces', this.spaces);
     }
 
     broadcastConnectedPlayerCount() {
