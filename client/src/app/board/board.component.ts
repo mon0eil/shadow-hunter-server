@@ -40,6 +40,9 @@ export class BoardComponent implements OnInit {
     this.serverService.blackCard$.subscribe(black => {
       this.black = black;
     });
+    this.serverService.greenCard$.subscribe(green => {
+      this.green = green;
+    });
   }
 
   onAddPlayer() {
