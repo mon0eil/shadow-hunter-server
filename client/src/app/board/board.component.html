@@ -74,5 +74,5 @@
       <div>Différence : {{ dices.six > dices.four ? dices.six - dices.four : dices.four - dices.six }}</div>
     </div>
 
-    <textarea class="global-text" [(ngModel)]="text" (keydown)="write()"></textarea>
+    <textarea class="global-text" (keydown)="write()" #textzone></textarea>
   </div>
