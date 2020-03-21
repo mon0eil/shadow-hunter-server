@@ -104,20 +104,24 @@ export class Game {
         if (!this.pawns.find(dice => dice.color === color)) {
             this.pawns.push(
                 {
-                    x: 300 + Math.floor((Math.random() * 20) - 40),
-                    y: 0 + Math.floor((Math.random() * 20) - 40),
+                    x: 0.56 + this.randomNumber(-0.03, 0.03),
+                    y: 0.5 + this.randomNumber(-0.03, 0.03),
                     color,
                     id: Math.random()
                 },
                 {
-                    x: 750 + Math.floor((Math.random() * 20) - 40),
-                    y: -300 + Math.floor((Math.random() * 20) - 40),
+                    x: 0.21 + this.randomNumber(-0.04, 0.04),
+                    y: 0.86 + this.randomNumber(-0.01, 0.01),
                     color,
                     id: Math.random()
                 },
             );
         }
         this.broadcastPawns();
+    }
+
+    randomNumber(min, max) {
+        return Math.random() * (max - min) + min;
     }
 
     moveDice(id: number, x: number, y: number) {

@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Pawn } from '../../../../interface/pawn.model';
 import { ServerService } from '../services/server.service';
 import { Space } from '../../../../interface/space.model';
 import { Card } from '../../../../interface/card.model';
+import { DragDrop } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements AfterViewInit {
 
   constructor(
-    private serverService: ServerService
+    private serverService: ServerService,
+    private dragDropService: DragDrop
   ) {}
 
   players: Pawn[] = [];
@@ -28,7 +31,9 @@ export class BoardComponent implements OnInit {
   };
   text = '';
 
-  ngOnInit(): void {
+  @ViewChild('boundaries') boundaries;
+
+  ngAfterViewInit(): void {
     this.serverService.connect();
 
     this.serverService.pawns$.subscribe(pawns => {
@@ -61,9 +66,13 @@ export class BoardComponent implements OnInit {
   positionChanged(index, event) {
     const player = this.players[index];
     const position = event.source.getFreeDragPosition();
-    player.x = position.x;
-    player.y = position.y;
-    this.serverService.requestPawnMove(player.id, position.x, position.y);
+    const boundariesBox = this.boundaries.nativeElement.getBoundingClientRect();
+    console.log(position, boundariesBox);
+    const x = position.x / boundariesBox.width;
+    const y = position.y / boundariesBox.height;
+    player.x = x;
+    player.y = y;
+    this.serverService.requestPawnMove(player.id, x, y);
   }
 
   reset() {
@@ -102,9 +111,10 @@ export class BoardComponent implements OnInit {
   }
 
   getPlayerPosition(player) {
+    const boundariesBox = this.boundaries.nativeElement.getBoundingClientRect();
     return {
-      x: player.x,
-      y: player.y
+      x: player.x * boundariesBox.width,
+      y: player.y * boundariesBox.height
     };
   }
 }
