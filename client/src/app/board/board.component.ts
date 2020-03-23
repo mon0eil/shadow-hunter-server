@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { Pawn } from '../../../../interface/pawn.model';
+import { Pawn } from '../../../../server/interface/pawn.model';
 import { ServerService } from '../services/server.service';
-import { Space } from '../../../../interface/space.model';
-import { Card } from '../../../../interface/card.model';
+import { Space } from '../../../../server/interface/space.model';
+import { Card } from '../../../../server/interface/card.model';
 import { DragDrop } from '@angular/cdk/drag-drop';
 
 

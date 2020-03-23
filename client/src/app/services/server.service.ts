@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Space } from '../../../../interface/space.model';
-import { Pawn } from '../../../../interface/pawn.model';
-import { Card } from '../../../../interface/card.model';
+import { Space } from '../../../../server/interface/space.model';
+import { Pawn } from '../../../../server/interface/pawn.model';
+import { Card } from '../../../../server/interface/card.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +21,7 @@ export class ServerService {
   constructor() { }
 
   connect() {
-    this.socket = new WebSocket('ws://darckoune.moe:13475');
+    this.socket = new WebSocket('ws://' + document.location.host);
 
     this.socket.onopen = () => {
       console.log('connected');
