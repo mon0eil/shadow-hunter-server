@@ -1,4 +1,4 @@
-import { Space } from "../interface/space.model";
+import { Space } from "./interface/space.model";
 
 export const spacesCards: Space[] = [
     {

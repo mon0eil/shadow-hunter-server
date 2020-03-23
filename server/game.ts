@@ -1,13 +1,13 @@
 import { spacesCards } from "./spaces-cards";
-import { Space } from "../interface/space.model";
-import { Pawn } from "../interface/pawn.model";
-import { Card } from "../interface/card.model";
+import { Space } from "./interface/space.model";
+import { Pawn } from "./interface/pawn.model";
+import { Card } from "./interface/card.model";
 import { whiteCards } from "./white-cards";
 import { blackCards } from "./black-cards";
 import { greenCards } from "./green-cards";
 
 export class Game {
-    connections = [];
+    connections: any[] = [];
     pawns: Pawn[] = [];
     spaces: Space[] = spacesCards.slice();
 
@@ -22,7 +22,7 @@ export class Game {
     greenDeck: Card[] = greenCards.slice();
     greenDiscard: Card[] = [];
 
-    dices = {
+    dices: any = {
         six: null,
         four: null
     }
@@ -159,7 +159,7 @@ export class Game {
         if (!this.whiteDeck) return; 
 
         this.whiteDeck = this.shuffle(this.whiteDeck);
-        const card = this.whiteDeck.pop();
+        const card = this.whiteDeck.pop()!;
         this.whiteCard = card;
         this.whiteDiscard.push(card);
         this.broadcastWhiteCard();
@@ -169,7 +169,7 @@ export class Game {
         if (!this.blackDeck) return; 
 
         this.blackDeck = this.shuffle(this.blackDeck);
-        const card = this.blackDeck.pop();
+        const card = this.blackDeck.pop()!;
         this.blackCard = card;
         this.blackDiscard.push(card);
         this.broadcastBlackCard();
@@ -180,7 +180,7 @@ export class Game {
         if (!this.greenDeck) return; 
 
         this.greenDeck = this.shuffle(this.greenDeck);
-        const card = this.greenDeck.pop()
+        const card = this.greenDeck.pop()!;
         this.greenDiscard.push(card)
         console.log(card)
         this.broadcastGreenCard(connection, card);
