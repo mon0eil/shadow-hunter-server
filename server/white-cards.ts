@@ -3,82 +3,82 @@ import { Card } from "./interface/card.model";
 export const whiteCards: Card[] = [
     {
         id: 0, 
-        name:"Advent",
-        effect: "If you are a Hunter you may reveal your identity and fully heal your damage"
+        name:"Avènement suprême",
+        effect: "Si vous êtes hunter, vous pouvez révéler votre identité et soigner toutes vos blessures."
     },
     { 
         id: 12,
-        name:"Blessing",
-        effect: "Pick a player character other than yourself and they heal D6 damage"
+        name:"Bénédiction",
+        effect: "Choisissez un personnage autre que vous et lancez le dé à 6 faces. Il se soigne d'autant de blessures que le résultat du dé."
     },
     { 
         id: 1,
-        name:"Chocolate",
-        effect: "If you're Allie, Emi or Unknown you may reveal your identity and fully heal your damage"
+        name:"Chocolat",
+        effect: "Si votre nom commence par A, E ou M, vous pouvez révéler votre identité et soigner toutes vos blessures."
     },
     { 
         id: 2,
-        name:"Concealed Knowledge",
-        effect: "When your turn is over, it will be your turn again"
+        name:"Savoir ancestral",
+        effect: "Lorsque votre tour es terminé, jouez immédiatement un nouveau tour."
     },
     { 
         id: 3,
-        name:"Disenchant Mirror", 
-        effect: "If you are either Vampire or Werewolf you must reveal your identity"
+        name:"Miroir Divin", 
+        effect: "Si vous êtes hunter autre que Métamorphe, vous devez révéler votre identité."
     },
     { 
         id: 4,
-        name:"First Aid", 
-        effect: "Set the damage marker of any player's character to 7"
+        name:"Premiers secours", 
+        effect: "Placez le marqueur de blessures du joueur de votre choix sur le 7."
     },
     { 
         id: 13,
-        name:"Flare of Judgement", 
-        effect: "All OTHER characters take 2 points of damage"
+        name:"Eclair purificateur", 
+        effect: "Tous les autres personnages subissent 2 blessures."
     },
     { 
         id: 14,
-        name:"Fortune Brooch",
-        effect: "You take no damage from the weird woods location. You may still heal your own damage"
+        name:"Broche de chance",
+        effect: "Un joueur dans la forêt hantée ne peut pas utiliser le pouvoir du lieu pour vous infliger des blessures."
     },
     { 
         id: 5,
-        name:"Guardian Angel",
-        effect: "you take no dmage from another characthers attack until your next turn"
+        name:"Ange gardien",
+        effect: "Les attaques ne vous infligent aucune blessure jusqu'à votre prochain tour."
     },
     { 
         id: 6,
-        name:"Holy Robe", 
-        effect: "Your attacks do 1 less damage and damage you take from attacks is reduced by 1 point"
+        name:"Toge sainte", 
+        effect: "Vos attaques infligent une blessure de moins et les blessures que vous subissez sont réduites de 1."
     },
     { 
         id: 7,
-        name:"Holy Water of healing", 
-        effect: "Heal 2 points of your damage"
+        name:"Eau bénite", 
+        effect: "Vous êtes soigné de 2 blessures"
     },
     { 
         id: 8,
-        name:"Holy Water of healing", 
-        effect: "Heal 2 points of your damage"
+        name:"Eau bénite", 
+        effect: "Vous êtes soigné de 2 blessures"
     },
     { 
         id: 15,
-        name:"Mystic Compas", 
-        effect: "you may roll twice for movement and choose which result to use"
+        name:"Boussole mystique", 
+        effect: "Quand vous vous déplacez, vous pouvez lancer 2 fois les dés et choisir quel résultat utiliser."
     },
     { 
         id: 9,
-        name:"Silver Rosary", 
-        effect: "If your attack kills another character you get all their equipment"
+        name:"Crucifix en argent", 
+        effect: "Si vous attaquez et tuez un autre personnage, vous récupérez tous ses équipements."
     },
     { 
         id: 10,
-        name:"Spear of Longinus",
-        effect: "If you're a hunter and attack successful you may reveal. If you do or are already revealed you give 2 extra damage"
+        name:"Lance de Longinus",
+        effect: "Si vous êtes hunter et que votre identité est révélée, si vos attaques infligent des blessures, elles infligent 2 blessures supplémentaires."
     },
     { 
         id: 11,
-        name:"Talisman",
-        effect: "you take no damage from the black cards Bloodthirsty Spider, Vampire Bat or Dynamite"
+        name:"Amulette",
+        effect: "Vous ne subissez aucune blessure des cartes : Araignée sanguinaire, Dynamite ou Chauve-souris vampire."
     }
 ]
