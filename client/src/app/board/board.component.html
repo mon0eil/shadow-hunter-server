@@ -2,7 +2,7 @@
 <div class="board-boundary" #boundaries>
     <ng-container cdkDropListGroup>
       <div
-        *ngFor="let player of players; let i = index"
+        *ngFor="let player of players; let i = index; trackBy:playerTrack"
         [style.background-color]="player.color"
         class="board-box"
         cdkDragBoundary=".board-boundary"

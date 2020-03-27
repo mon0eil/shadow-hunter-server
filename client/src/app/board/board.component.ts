@@ -3,7 +3,6 @@ import { Pawn } from '../../../../server/interface/pawn.model';
 import { ServerService } from '../services/server.service';
 import { Space } from '../../../../server/interface/space.model';
 import { Card } from '../../../../server/interface/card.model';
-import { DragDrop } from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -14,8 +13,7 @@ import { DragDrop } from '@angular/cdk/drag-drop';
 export class BoardComponent implements AfterViewInit {
 
   constructor(
-    private serverService: ServerService,
-    private dragDropService: DragDrop
+    private serverService: ServerService
   ) {}
 
   players: Pawn[] = [];
@@ -53,13 +51,31 @@ export class BoardComponent implements AfterViewInit {
       this.green = green;
     });
     this.serverService.dices$.subscribe(dices => {
-      this.dices = dices;
+      this.showRandomDice(0, dices);
     });
     this.serverService.text$.subscribe(text => {
       const sel = getInputSelection(this.textZone.nativeElement);
       this.textZone.nativeElement.value = text;
       setInputSelection(this.textZone.nativeElement, sel.start, sel.end);
     });
+  }
+
+  randomizeDice() {
+    this.dices = {
+      six: Math.ceil(Math.random() * 6),
+      four: Math.ceil(Math.random() * 4)
+    };
+  }
+
+  showRandomDice(iteration: number, result) {
+    setTimeout(() => {
+      if (iteration < 10) {
+        this.randomizeDice();
+        this.showRandomDice(iteration + 1, result);
+      } else {
+        this.dices = result;
+      }
+    }, 50);
   }
 
   onAddPlayer() {
@@ -117,6 +133,10 @@ export class BoardComponent implements AfterViewInit {
       x: player.x * boundariesBox.width,
       y: player.y * boundariesBox.height
     };
+  }
+
+  playerTrack(player) {
+    return player.id;
   }
 }
 
