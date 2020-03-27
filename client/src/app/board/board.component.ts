@@ -138,6 +138,25 @@ export class BoardComponent implements AfterViewInit {
   playerTrack(player) {
     return player.id;
   }
+
+  copyWhiteCard() {
+    if (this.white) {
+      navigator.clipboard.writeText(this.white.name);
+    }
+  }
+
+  copyBlackCard() {
+    if (this.black) {
+      navigator.clipboard.writeText(this.black.name);
+    }
+  }
+
+  copyGreenCard(event) {
+    event.stopPropagation();
+    if (this.green) {
+      navigator.clipboard.writeText(this.green.effect);
+    }
+  }
 }
 
 // Copied code :D

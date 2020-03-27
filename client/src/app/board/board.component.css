@@ -162,3 +162,9 @@
   width: 500px;
   height: 100%;
 }
+
+.card-button {
+  position: absolute;
+  top: 0;
+  left: 105%;
+}
