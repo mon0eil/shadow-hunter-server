@@ -128,8 +128,8 @@ export class Game {
         const pawn = this.pawns.find(cd => cd.id === id);
         if (!pawn) return; 
 
-        pawn.x = x;
-        pawn.y = y;
+        pawn.x = Math.min(Math.max(0, x), 1);
+        pawn.y = Math.min(Math.max(0, y), 1);
 
         this.broadcastPawns();
     }
