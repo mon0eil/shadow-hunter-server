@@ -24,7 +24,7 @@ export const whiteCards: Card[] = [
     { 
         id: 3,
         name:"Miroir Divin", 
-        effect: "Si vous êtes hunter autre que Métamorphe, vous devez révéler votre identité."
+        effect: "Si vous êtes Shadow autre que Métamorphe, vous devez révéler votre identité."
     },
     { 
         id: 4,
