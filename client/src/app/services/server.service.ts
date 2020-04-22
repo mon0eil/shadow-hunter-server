@@ -69,15 +69,24 @@ export class ServerService {
   }
 
   handleWhiteCard(card: Card) {
-    this.whiteCard$.next(card);
+    this.whiteCard$.next(null);
+    setTimeout(() => {
+      this.whiteCard$.next(card);
+    }, 150);
   }
 
   handleBlackCard(card: Card) {
-    this.blackCard$.next(card);
+    this.blackCard$.next(null);
+    setTimeout(() => {
+      this.blackCard$.next(card);
+    }, 150);
   }
 
   handleGreenCard(card: Card) {
-    this.greenCard$.next(card);
+    this.greenCard$.next(null);
+    setTimeout(() => {
+      this.greenCard$.next(card);
+    }, 150);
   }
 
   handleDices(dices) {
@@ -88,8 +97,8 @@ export class ServerService {
     this.text$.next(text);
   }
 
-  requestPawnCreation(color: string) {
-    this.sendMessage('create', color);
+  requestPawnCreation() {
+    this.sendMessage('create');
   }
 
   requestDiceThrow() {

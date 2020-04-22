@@ -6,6 +6,8 @@ import { whiteCards } from "./white-cards";
 import { blackCards } from "./black-cards";
 import { greenCards } from "./green-cards";
 
+const PAWN_COLROS = ['violet', 'black', 'yellow', 'blue', 'white', 'purple', 'green', 'orange', 'red'];
+
 export class Game {
     connections: any[] = [];
     pawns: Pawn[] = [];
@@ -26,6 +28,8 @@ export class Game {
         six: null,
         four: null
     }
+
+    remainingPawnColors = PAWN_COLROS.slice();
 
     text = '';
 
@@ -62,13 +66,18 @@ export class Game {
         this.greenDiscard = [];
         this.broadcastPawns();
         this.broadcastConnectedPlayerCount();
+        this.remainingPawnColors = PAWN_COLROS.slice();
+        this.blackCard = null;
+        this.whiteCard = null;
+        this.broadcastBlackCard();
+        this.broadcastWhiteCard();
     }
 
     handleMessage(connection, type, data) {
         console.log('got message', type);
         switch(type) {
             case 'create':
-                this.addDices(data);
+                this.addDices();
                 break;
             case 'move':
                 this.moveDice(data.id, data.x, data.y);
@@ -100,7 +109,11 @@ export class Game {
         }
     }
 
-    addDices(color: string) {
+    addDices() {
+        let color = this.remainingPawnColors.pop();
+        if (!color) {
+            color = this.getRandomColor();
+        }
         if (!this.pawns.find(dice => dice.color === color)) {
             this.pawns.push(
                 {
@@ -237,4 +250,13 @@ export class Game {
     broadcastText() {
         this.broadcast('text', this.text);
     }
+
+    getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
 }

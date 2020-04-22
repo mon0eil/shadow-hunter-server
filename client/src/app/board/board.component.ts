@@ -22,7 +22,6 @@ export class BoardComponent implements AfterViewInit {
   white: Card = null;
   black: Card = null;
   green: Card = null;
-  color: string[] = ['violet', 'black', 'orange', 'blue', 'white', 'purple', 'green', 'orange', 'red'];
   dices = {
     six: null,
     four: null
@@ -79,7 +78,7 @@ export class BoardComponent implements AfterViewInit {
   }
 
   onAddPlayer() {
-    this.serverService.requestPawnCreation(this.color.pop());
+    this.serverService.requestPawnCreation();
   }
 
   positionChanged(index, event) {
