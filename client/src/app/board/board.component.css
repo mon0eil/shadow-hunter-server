@@ -168,3 +168,9 @@
   top: 0;
   left: 105%;
 }
+
+.card-button-hide {
+  position: absolute;
+  top: 20%;
+  left: 105%;
+}

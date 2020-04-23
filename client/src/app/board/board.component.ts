@@ -3,6 +3,7 @@ import { Pawn } from '../../../../server/interface/pawn.model';
 import { ServerService } from '../services/server.service';
 import { Space } from '../../../../server/interface/space.model';
 import { Card } from '../../../../server/interface/card.model';
+import copy from 'copy-to-clipboard';
 
 
 @Component({
@@ -140,20 +141,20 @@ export class BoardComponent implements AfterViewInit {
 
   copyWhiteCard() {
     if (this.white) {
-      navigator.clipboard.writeText(this.white.name);
+      copy(this.white.name);
     }
   }
 
   copyBlackCard() {
     if (this.black) {
-      navigator.clipboard.writeText(this.black.name);
+      copy(this.black.name);
     }
   }
 
   copyGreenCard(event) {
     event.stopPropagation();
     if (this.green) {
-      navigator.clipboard.writeText(this.green.effect);
+      copy(this.green.effect);
     }
   }
 }

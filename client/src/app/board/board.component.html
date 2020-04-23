@@ -58,10 +58,11 @@
       <div class="card-effect">{{ white?.effect }}</div>
       <button class="card-button" (click)="copyWhiteCard()">Copier</button>
     </div>
-    <div class="card-small-green" (click)="hideGreenCard()">
+    <div class="card-small-green">
       <div class="card-title"> {{ green?.name }}</div>
       <div class="card-effect">{{ green?.effect }}</div>
       <button class="card-button" (click)="copyGreenCard($event)">Copier</button>
+      <button class="card-button-hide" (click)="hideGreenCard()">Cacher</button>
     </div>
     <div class="card-small-black">
       <div class="card-title inverted"> {{ black?.name }}</div>
