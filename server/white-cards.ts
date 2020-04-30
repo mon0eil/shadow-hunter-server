@@ -24,7 +24,7 @@ export const whiteCards: Card[] = [
     { 
         id: 3,
         name:"Miroir Divin", 
-        effect: "Si vous êtes Shadow autre que Métamorphe, vous devez révéler votre identité."
+        effect: "Si vous êtes Shadow dont le nom ne commence pas par M, vous devez révéler votre identité."
     },
     { 
         id: 4,
@@ -36,7 +36,7 @@ export const whiteCards: Card[] = [
         name:"Eclair purificateur", 
         effect: "Tous les autres personnages subissent 2 blessures."
     },
-    { 
+    {
         id: 14,
         name:"Broche de chance",
         effect: "Un joueur dans la forêt hantée ne peut pas utiliser le pouvoir du lieu pour vous infliger des blessures."
